@@ -1,34 +1,31 @@
 import * as PIXI from 'pixi.js'
 import './styles/main.css'
 
-// The application will create a renderer using WebGL, if possible,
-// with a fallback to a canvas render. It will also setup the ticker
-// and the root stage PIXI.Container
 const app = new PIXI.Application()
 
-// The application will create a canvas element for you that you
-// can then insert into the DOM
 document.body.appendChild(app.view)
 
 // load the texture we need
-app.loader.add('bunny', 'assets/bunny.png').load((loader, resources) => {
-  // This creates a texture from a 'bunny.png' image
-  const bunny = new PIXI.Sprite(resources.bunny.texture)
+app.loader.add('hypnocircle', 'assets/hyp2.png').load((loader, resources) => {
+  // This creates a texture from a 'hypnocircle.png' image
+  const hypnocircle = new PIXI.Sprite(resources.hypnocircle.texture)
 
-  // Setup the position of the bunny
-  bunny.x = app.renderer.width / 2
-  bunny.y = app.renderer.height / 2
+  app.renderer.backgroundColor = 0x000000
+
+  // Setup the position of the hypnocircle
+  hypnocircle.x = app.renderer.width / 2
+  hypnocircle.y = app.renderer.height / 2
 
   // Rotate around the center
-  bunny.anchor.x = 0.5
-  bunny.anchor.y = 0.5
+  hypnocircle.anchor.x = 0.5
+  hypnocircle.anchor.y = 0.5
 
-  // Add the bunny to the scene we are building
-  app.stage.addChild(bunny)
+  // Add the hypnocircle to the scene we are building
+  app.stage.addChild(hypnocircle)
 
   // Listen for frame updates
   app.ticker.add(() => {
-    // each frame we spin the bunny around a bit
-    bunny.rotation += 0.01
+    // each frame we spin the hypnocircle around a bit
+    hypnocircle.rotation -= 0.2
   })
 })
