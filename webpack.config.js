@@ -9,13 +9,19 @@ module.exports = {
     new CleanWebpackPlugin({
       cleanOnceBeforeBuildPatterns: ['dist']
     }),
-    new HtmlWebpackPlugin({
-      title: 'Pixi.js Demo'
-    }),
+    new HtmlWebpackPlugin({template: './src/index.html'}),
     new CopyPlugin([
       { from: 'src/assets', to: 'assets' },
     ])
   ],
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      }
+    ]
+  },
   output: {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist')

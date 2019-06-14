@@ -1,4 +1,5 @@
 import * as PIXI from 'pixi.js'
+import './styles/main.css'
 
 // The application will create a renderer using WebGL, if possible,
 // with a fallback to a canvas render. It will also setup the ticker
