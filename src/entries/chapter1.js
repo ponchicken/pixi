@@ -37,7 +37,9 @@ loader
     stage.addChild(cat)
 
     /** tileset */
-    const catsSprite = new Sprite(getFrame('catsTileset', 128, 128, 32, 32))
+    const catsSprite = new Sprite(
+      loader.resources.catsTileset.textures['catDownStand.png']
+    )
 
     catsSprite.position.set(64, 64)
 
