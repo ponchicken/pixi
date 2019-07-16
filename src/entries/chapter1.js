@@ -33,11 +33,13 @@ loader
     stage.addChild(cat)
 
     /** tileset */
-
-    const catsTexture = loader.resources.catsTileset.texture
-    const rectangle = new PIXI.Rectangle(128, 128, 32, 32)
-    catsTexture.frame = rectangle
-    const catsSprite = new PIXI.Sprite(catsTexture)
+    const catsSprite = new PIXI.Sprite(getFrame({
+      source: 'catsTileset',
+      x: 128,
+      y: 128,
+      width: 32,
+      height: 32
+    }))
 
     catsSprite.position.set(64, 64)
 
@@ -47,9 +49,25 @@ loader
     renderer.render(stage)
   })
 
-// loader.onComplete
-//   .add(() => {
-//     console.log(sprites.cat)
-//     stage.addChild(sprites.cat)
-//     renderer.render(stage)
-//   })
+/** Frame creator */
+function getFrame ({
+  source, x, y, width, height
+}) {
+  let texture = null
+
+  if (typeof source === 'string') {
+    if (loader.resources[source]) {
+      texture = loader.resources[source].texture
+    }
+  } else if (source instanceof PIXI.BaseTexture) {
+    texture = new PIXI.Texture(source)
+  }
+
+  if (!texture) {
+    console.warn(`Load the ${source} texture into cache`)
+  } else {
+    const frame = new PIXI.Rectangle(x, y, width, height)
+    texture.frame = frame
+    return texture
+  }
+}
