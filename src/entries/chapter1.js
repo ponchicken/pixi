@@ -15,16 +15,20 @@ const stage = new PIXI.Container()
  */
 
 const loader = new PIXI.Loader()
-const sprites = {}
 
 loader
   .add('cat', 'assets/cat.png')
   .load(() => {
-    sprites.cat = new PIXI.Sprite(
+    const cat = new PIXI.Sprite(
       loader.resources.cat.texture
     )
 
-    stage.addChild(sprites.cat)
+    cat.position.set(96, 96)
+    cat.scale.set(0.5, 0.5)
+    cat.anchor.set(0.5, 0.5)
+    cat.rotation = 1
+
+    stage.addChild(cat)
     renderer.render(stage)
   })
 
