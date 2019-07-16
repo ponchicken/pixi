@@ -22,7 +22,7 @@ document.body.appendChild(renderer.view)
 
 loader
   .add('cat', 'assets/cat.png')
-  .add('catsTileset', 'assets/catsTileset.png')
+  .add('catsTileset', 'assets/catsTileset.json')
   .load(() => {
     /** cat */
     const cat = new Sprite(

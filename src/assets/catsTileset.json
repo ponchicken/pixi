@@ -1,0 +1,33 @@
+{ "frames": {
+
+"catDownWalk1.png":
+{
+  "frame": {"x": 0, "y": 0, "w": 32, "h": 32},
+  "rotated": false,
+  "trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":384,"h":256},
+	"sourceSize": {"w":32, "h":32},
+	"pivot": {"x":0.5,"y":0.5}
+},
+
+"catDownWalk2.png":
+{
+  "frame": {"x": 64, "y": 0, "w": 32, "h": 32},
+  "rotated": false,
+  "trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":384,"h":256},
+	"sourceSize": {"w":32, "h":32},
+	"pivot": {"x":0.5,"y":0.5}
+},
+
+"catDownStand.png":
+{
+  "frame": {"x": 32, "y": 0, "w": 32, "h": 32},
+  "rotated": false,
+  "trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":384,"h":256},
+	"sourceSize": {"w":32, "h":32},
+	"pivot": {"x":0.5,"y":0.5}
+}
+
+}}
