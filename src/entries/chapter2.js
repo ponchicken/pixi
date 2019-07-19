@@ -64,26 +64,39 @@ function setKeyboardEvents () {
   const right = keyboard('ArrowRight')
   const down = keyboard('ArrowDown')
 
+  explorer.accelerationX = 0
+  explorer.accelerationY = 0
+  explorer.frictionX = 1
+  explorer.frictionY = 1
+
+  explorer.speed = 0.3
+  explorer.drag = 0.9
+
   right.press = () => {
-    explorer.vx = 5
-    explorer.vy = 0
+    explorer.accelerationX = explorer.speed
+    explorer.frictionX = 1
   }
 
   right.release = () => {
-    explorer.vx = 0
+    if (!left.isDown) {
+      explorer.accelerationX = 0
+      explorer.frictionX = explorer.drag
+    }
   }
 
   left.press = () => {
-    explorer.vx = -5
-    explorer.vy = 0
+    explorer.accelerationX = -explorer.speed
+    explorer.frictionX = 1
   }
 
   left.release = () => {
-    explorer.vx = 0
+    if (!right.isDown) {
+      explorer.accelerationX = 0
+      explorer.frictionX = explorer.drag
+    }
   }
 
   up.press = () => {
-    explorer.vx = 0
     explorer.vy = -5
   }
 
@@ -92,7 +105,6 @@ function setKeyboardEvents () {
   }
 
   down.press = () => {
-    explorer.vx = 0
     explorer.vy = 5
   }
 
@@ -111,6 +123,12 @@ function play () {
   const {
     explorer
   } = o
+
+  explorer.vx += explorer.accelerationX
+  explorer.vy += explorer.accelerationY
+
+  explorer.vx *= explorer.frictionX
+  explorer.vy *= explorer.frictionY
 
   explorer.x += explorer.vx
   explorer.y += explorer.vy
