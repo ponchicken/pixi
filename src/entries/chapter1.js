@@ -10,8 +10,8 @@ const loader = new PIXI.Loader()
 const stage = new PIXI.Container()
 
 const renderer = PIXI.autoDetectRenderer({
-  width: 256,
-  height: 256
+  width: 512,
+  height: 512
 })
 
 document.body.appendChild(renderer.view)
@@ -22,28 +22,37 @@ document.body.appendChild(renderer.view)
 
 loader
   .add('cat', 'assets/cat.png')
-  .add('catsTileset', 'assets/catsTileset.json')
+  .add('animals', 'assets/images/animals.json')
   .load(() => {
     /** cat */
+    // const cat = new Sprite(
+    //   loader.resources.cat.texture
+    // )
+
+    // cat.anchor.set(0.5, 0.5)
+    // cat.position.set(128, 128)
+    // cat.scale.set(0.5, 0.5)
+    // cat.rotation = 0.3
+
+    // stage.addChild(cat)
+
+    /** tileset */
     const cat = new Sprite(
-      loader.resources.cat.texture
+      loader.resources.animals.textures['cat.png']
+    )
+    const tiger = new Sprite(
+      loader.resources.animals.textures['tiger.png']
     )
 
+    cat.position.set(256, 256)
     cat.anchor.set(0.5, 0.5)
-    cat.position.set(128, 128)
     cat.scale.set(0.5, 0.5)
     cat.rotation = 0.3
 
+    tiger.position.set(16, 16)
+
     stage.addChild(cat)
-
-    /** tileset */
-    const catsSprite = new Sprite(
-      loader.resources.catsTileset.textures['catDownStand.png']
-    )
-
-    catsSprite.position.set(64, 64)
-
-    stage.addChild(catsSprite)
+    stage.addChild(tiger)
 
     /** rerender */
     renderer.render(stage)
@@ -59,24 +68,3 @@ loader.onLoad.add((loader, resource) => {
 loader.onComplete.add(() => {
   console.info('Completed!')
 })
-
-/** Frame creator */
-function getFrame (source, x, y, width, height) {
-  let texture = null
-
-  if (typeof source === 'string') {
-    if (loader.resources[source]) {
-      texture = loader.resources[source].texture
-    }
-  } else if (source instanceof BaseTexture) {
-    texture = new Texture(source)
-  }
-
-  if (!texture) {
-    console.warn(`Load the ${source} texture into cache`)
-  } else {
-    const frame = new Rectangle(x, y, width, height)
-    texture.frame = frame
-    return texture
-  }
-}
