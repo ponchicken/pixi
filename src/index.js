@@ -1,1 +1,1 @@
-import './entries/chapter1'
+import './entries/chapter2'
