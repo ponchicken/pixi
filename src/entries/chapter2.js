@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js'
 import '../styles/main.css'
+import { contain } from '../helpers/contain'
 
 const Sprite = PIXI.Sprite
 const o = {}
@@ -69,8 +70,8 @@ function setKeyboardEvents () {
   explorer.frictionX = 1
   explorer.frictionY = 1
 
-  explorer.speed = 0.3
-  explorer.drag = 0.9
+  explorer.speed = 0.5
+  explorer.drag = 0.98
 
   right.press = () => {
     explorer.accelerationX = explorer.speed
@@ -132,14 +133,42 @@ function play () {
     explorer
   } = o
 
+  // acceleration
   explorer.vx += explorer.accelerationX
   explorer.vy += explorer.accelerationY
 
   explorer.vx *= explorer.frictionX
   explorer.vy *= explorer.frictionY
 
+  // gravity
+  explorer.vy += 0.15
+
+  // move
   explorer.x += explorer.vx
   explorer.y += explorer.vy
+
+  // collision
+  let collision = contain(
+    explorer,
+    {
+      x: 0,
+      y: 0,
+      width: renderer.view.width,
+      height: renderer.view.height
+    }
+  )
+  // Check for a collision. If the value of `collision` isn't
+  // `undefined` then you know the sprite hit a boundary
+  if (collision) {
+    // Reverse the sprite's `vx` value if it hits the left or right
+    if (collision.has('left') || collision.has('right')) {
+      explorer.vx = -explorer.vx / 2
+    }
+    // Reverse the sprite's `vy` value if it hits the top or bottom
+    if (collision.has('top') || collision.has('bottom')) {
+      explorer.vy = -explorer.vy / 2
+    }
+  }
 }
 
 function keyboard (keyCode) {
