@@ -97,19 +97,27 @@ function setKeyboardEvents () {
   }
 
   up.press = () => {
-    explorer.vy = -5
+    explorer.accelerationY = -explorer.speed
+    explorer.frictionY = 1
   }
 
   up.release = () => {
-    explorer.vy = 0
+    if (!down.isDown) {
+      explorer.accelerationY = 0
+      explorer.frictionY = explorer.drag
+    }
   }
 
   down.press = () => {
-    explorer.vy = 5
+    explorer.accelerationY = explorer.speed
+    explorer.frictionY = 1
   }
 
   down.release = () => {
-    explorer.vy = 0
+    if (!up.isDown) {
+      explorer.accelerationY = 0
+      explorer.frictionY = explorer.drag
+    }
   }
 }
 
