@@ -24,9 +24,13 @@ document.body.appendChild(renderer.view)
 
 loader
   .add('treasureHunter', 'assets/images/treasureHunter.json')
+  .add('catsTileset', 'assets/catsTileset.json')
   .load(() => {
     /** tileset */
-    const textures = loader.resources.treasureHunter.textures
+    const textures = {
+      ...loader.resources.treasureHunter.textures,
+      ...loader.resources.catsTileset.textures
+    }
 
     setGameObjects(textures)
     setKeyboardEvents()
@@ -37,27 +41,28 @@ loader
 function setGameObjects (textures) {
   o.dungeon = new Sprite(textures['dungeon.png'])
   o.explorer = new Sprite(textures['explorer.png'])
+  o.cat = new Sprite(textures['catDownStand.png'])
 
   const {
     dungeon,
-    explorer
+    cat
   } = o
 
   stage.addChild(dungeon)
 
-  explorer.position.set(
+  cat.position.set(
     64,
-    stage.height / 2 - explorer.height / 2
+    stage.height / 2 - cat.height / 2
   )
-  stage.addChild(explorer)
+  stage.addChild(cat)
 
-  explorer.vx = 0
-  explorer.vy = 0
+  cat.vx = 0
+  cat.vy = 0
 }
 
 function setKeyboardEvents () {
   const {
-    explorer
+    cat
   } = o
 
   const left = keyboard('ArrowLeft')
@@ -65,59 +70,59 @@ function setKeyboardEvents () {
   const right = keyboard('ArrowRight')
   const down = keyboard('ArrowDown')
 
-  explorer.accelerationX = 0
-  explorer.accelerationY = 0
-  explorer.frictionX = 1
-  explorer.frictionY = 1
+  cat.accelerationX = 0
+  cat.accelerationY = 0
+  cat.frictionX = 1
+  cat.frictionY = 1
 
-  explorer.speed = 0.5
-  explorer.drag = 0.98
+  cat.speed = 0.5
+  cat.drag = 0.999
 
   right.press = () => {
-    explorer.accelerationX = explorer.speed
-    explorer.frictionX = 1
+    cat.accelerationX = cat.speed
+    cat.frictionX = 1
   }
 
   right.release = () => {
     if (!left.isDown) {
-      explorer.accelerationX = 0
-      explorer.frictionX = explorer.drag
+      cat.accelerationX = 0
+      cat.frictionX = cat.drag
     }
   }
 
   left.press = () => {
-    explorer.accelerationX = -explorer.speed
-    explorer.frictionX = 1
+    cat.accelerationX = -cat.speed
+    cat.frictionX = 1
   }
 
   left.release = () => {
     if (!right.isDown) {
-      explorer.accelerationX = 0
-      explorer.frictionX = explorer.drag
+      cat.accelerationX = 0
+      cat.frictionX = cat.drag
     }
   }
 
   up.press = () => {
-    explorer.accelerationY = -explorer.speed
-    explorer.frictionY = 1
+    cat.accelerationY = -cat.speed
+    cat.frictionY = 1
   }
 
   up.release = () => {
     if (!down.isDown) {
-      explorer.accelerationY = 0
-      explorer.frictionY = explorer.drag
+      cat.accelerationY = 0
+      cat.frictionY = cat.drag
     }
   }
 
   down.press = () => {
-    explorer.accelerationY = explorer.speed
-    explorer.frictionY = 1
+    cat.accelerationY = cat.speed
+    cat.frictionY = 1
   }
 
   down.release = () => {
     if (!up.isDown) {
-      explorer.accelerationY = 0
-      explorer.frictionY = explorer.drag
+      cat.accelerationY = 0
+      cat.frictionY = cat.drag
     }
   }
 }
@@ -130,26 +135,26 @@ function gameLoop () {
 
 function play () {
   const {
-    explorer
+    cat
   } = o
 
   // acceleration
-  explorer.vx += explorer.accelerationX
-  explorer.vy += explorer.accelerationY
+  cat.vx += cat.accelerationX
+  cat.vy += cat.accelerationY
 
-  explorer.vx *= explorer.frictionX
-  explorer.vy *= explorer.frictionY
+  cat.vx *= cat.frictionX
+  cat.vy *= cat.frictionY
 
   // gravity
-  explorer.vy += 0.15
+  cat.vy += 0.15
 
   // move
-  explorer.x += explorer.vx
-  explorer.y += explorer.vy
+  cat.x += cat.vx
+  cat.y += cat.vy
 
   // collision
   let collision = contain(
-    explorer,
+    cat,
     {
       x: 0,
       y: 0,
@@ -162,11 +167,11 @@ function play () {
   if (collision) {
     // Reverse the sprite's `vx` value if it hits the left or right
     if (collision.has('left') || collision.has('right')) {
-      explorer.vx = -explorer.vx / 2
+      cat.vx = -cat.vx / 1.05
     }
     // Reverse the sprite's `vy` value if it hits the top or bottom
     if (collision.has('top') || collision.has('bottom')) {
-      explorer.vy = -explorer.vy / 2
+      cat.vy = -cat.vy / 1.05
     }
   }
 }
