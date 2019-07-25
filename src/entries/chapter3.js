@@ -35,23 +35,23 @@ loader
 
 function setGameObjects () {
   const circle = new Graphics()
-  const square = new Graphics()
+  const rect = new Graphics()
 
   circle.beginFill(0xffaa44)
   circle.lineStyle(1, 0xffffff, 0.5)
   circle.drawCircle(32, 32, 16)
   circle.endFill()
 
-  square.beginFill(0x44aaff)
-  square.lineStyle(1, 0xffffff, 0.5)
-  square.drawRect(32, 32, 128, 16)
-  square.endFill()
+  rect.beginFill(0x44aaff)
+  rect.lineStyle(1, 0xffffff, 0.5)
+  rect.drawRect(32, 32, 128, 16)
+  rect.endFill()
 
   circle.position.set(64, 64)
-  square.position.set(128, 400)
+  rect.position.set(128, 400)
 
   stage.addChild(circle)
-  stage.addChild(square)
+  stage.addChild(rect)
 }
 
 function gameLoop () {
