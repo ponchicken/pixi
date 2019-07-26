@@ -75,30 +75,30 @@ function gameLoop () {
 function play () {
   const { line } = o
 
-  line.angleA += 0.02
+  line.angleA += 0.5
   const rotatingA = rotateAroundPoint({
     point: {
-      x: 100, y: 100
+      x: 300, y: 300
     },
     distance: {
-      x: 80, y: 80
+      x: randomInt(80, 112), y: randomInt(80, 112)
     },
     angle: line.angleA
   })
 
-  line.angleB -= 0.03
+  line.angleB -= 0.55
   const rotatingB = rotateAroundPoint({
     point: {
-      x: 400, y: 400
+      x: 300, y: 300
     },
     distance: {
-      x: 100, y: 100
+      x: randomInt(100, 700), y: randomInt(100, 700)
     },
     angle: line.angleB
   })
 
-  line.clear()
-  line.lineStyle(3, 0xff4440, 0.5)
+  // line.clear()
+  line.lineStyle(30, 0xff4440, 0.005)
   line.moveTo(rotatingA.x, rotatingA.y)
   line.lineTo(rotatingB.x, rotatingB.y)
 }
@@ -112,4 +112,10 @@ function rotateAroundPoint ({
   result.x = point.x + Math.cos(angle) * distance.x
   result.y = point.y + Math.sin(angle) * distance.y
   return result
+}
+
+function randomInt (min, max) {
+  var rand = min + Math.random() * (max + 1 - min)
+  rand = Math.floor(rand)
+  return rand
 }
