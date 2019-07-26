@@ -1,4 +1,4 @@
-export const contain = (sprite, {
+export const contain = (target, {
   x = 0,
   y = 0,
   width = 0,
@@ -6,23 +6,23 @@ export const contain = (sprite, {
 }) => {
   let collision = new Set()
 
-  if (sprite.x < x) {
-    sprite.x = x
+  if (target.x < x) {
+    target.x = x
     collision.add('left')
   }
 
-  if (sprite.x + sprite.width > width) {
-    sprite.x = width - sprite.width
+  if (target.x + target.width > width) {
+    target.x = width - target.width
     collision.add('right')
   }
 
-  if (sprite.y < y) {
-    sprite.y = y
+  if (target.y < y) {
+    target.y = y
     collision.add('top')
   }
 
-  if (sprite.y + sprite.height > height) {
-    sprite.y = height - sprite.height
+  if (target.y + target.height > height) {
+    target.y = height - target.height
     collision.add('bottom')
   }
 
