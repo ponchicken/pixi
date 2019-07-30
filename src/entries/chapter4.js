@@ -9,8 +9,8 @@ const {
 
 const o = {}
 const ball = {
-  moveX: 4,
-  moveY: 5
+  moveX: 7,
+  moveY: 8
 }
 const game = {
   state: play
@@ -61,10 +61,10 @@ function play () {
 
   if (collision) {
     if (collision.has('left') || collision.has('right')) {
-      ball.moveX = -Math.sign(ball.moveX) * randomInt(3, 6)
+      ball.moveX = -Math.sign(ball.moveX) * randomInt(4, 8)
     }
     if (collision.has('top') || collision.has('bottom')) {
-      ball.moveY = -Math.sign(ball.moveY) * randomInt(3, 6)
+      ball.moveY = -Math.sign(ball.moveY) * randomInt(4, 8)
     }
   }
 
